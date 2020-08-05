@@ -71,6 +71,7 @@ function WordsHide() {
         '\u202a',
         '\u202b',
         '\u202c',
+        '\u202e',
         '\u2060',
         '\u2061',
         '\u2062',
@@ -78,7 +79,6 @@ function WordsHide() {
         '\u2064',
         '\u2065',
         '\u2066',
-        '\u2067',
         '\u2068',
         '\u2069',
         '\u206a',
@@ -88,7 +88,7 @@ function WordsHide() {
         '\u206e',
         '\u206f'
     ];
-    this.symbolsReg = /\u202d([\u200b-\u200f\u202a-\u202d\u2060-\u206f]+)\u202d/;
+    this.symbolsReg = /\u202d([\u200b-\u200f\u202a-\u202c\u202e\u2060-\u206f]+)\u202d/;
 }
 WordsHide.prototype.hexStrToHidden = function (hexStr, password) {
     var fromSeed = new FromSeed(this.defaultSymbols, password, hexStr.length);
@@ -153,24 +153,24 @@ WordsHide.prototype.hexStrToBinStr = function (hexStr) {
     }
     return binStr;
 }
-WordsHide.prototype.hideWithCompress = function (str, password) {
+WordsHide.prototype.hideWithCompress = function (str, password = "") {
     var binStr = this.compress(str);
     var hexStr = this.binStrToHexStr(binStr);
     var hidden = this.hexStrToHidden(hexStr, password);
     return hidden;
 }
-WordsHide.prototype.hideWithUtf8 = function (str, password) {
+WordsHide.prototype.hideWithUtf8 = function (str, password = "") {
     var hexStr = this.strToHexStr(str);
     var hidden = this.hexStrToHidden(hexStr, password);
     return hidden;
 }
-WordsHide.prototype.unhideWithCompress = function (hidden, password) {
+WordsHide.prototype.unhideWithCompress = function (hidden, password = "") {
     var hexStr = this.hiddenToHexStr(hidden, password);
     var binStr = this.hexStrToBinStr(hexStr);
     var str = this.uncompress(binStr);
     return str;
 }
-WordsHide.prototype.unhideWithUtf8 = function (hidden, password) {
+WordsHide.prototype.unhideWithUtf8 = function (hidden, password = "") {
     var hexStr = this.hiddenToHexStr(hidden, password);
     var str = this.hexStrToStr(hexStr);
     return str;

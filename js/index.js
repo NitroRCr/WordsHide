@@ -7,7 +7,6 @@ $('.to-copy').click(function () {
 
 var wh = new WordsHide();
 $('.start-mixin').click(function () {
-    console.time('process');
     var text = $('#textin').val();
     if ($('#if-encrypt')[0].checked) {
         var password = $('#password').val();
@@ -50,7 +49,6 @@ $('.start-mixin').click(function () {
     }
     $('pre.result').text(text);
     $('.to-copy').attr('data-clipboard-text', text);
-    console.timeEnd('process');
 });
 
 $('#if-encrypt').click(function () {

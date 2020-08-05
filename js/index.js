@@ -7,7 +7,8 @@ $('.to-copy').click(function () {
 
 var wh = new WordsHide();
 $('.start-mixin').click(function () {
-    var text = $('#textin').val();
+    var input = $('#textin').val();
+    var text = input;
     if ($('#if-encrypt')[0].checked) {
         var password = $('#password').val();
     } else {
@@ -39,6 +40,7 @@ $('.start-mixin').click(function () {
             throw e;
         }
         text = text.replace(match[0], str);
+        $('pre.light-text').text(input.replace(match[0], string2unicode(match[0])));
     } else {
         if (ifCompress) {
             text = wh.hideWithCompress(text, password);
@@ -46,6 +48,7 @@ $('.start-mixin').click(function () {
             text = wh.hideWithUtf8(text, password);
         }
         text = '\u0020\u202d' + text + '\u202d\u0020';
+        $('pre.light-text').text(string2unicode(text));
     }
     $('pre.result').text(text);
     $('.to-copy').attr('data-clipboard-text', text);
@@ -58,6 +61,13 @@ $('#if-encrypt').click(function () {
         $('div.password').css('display', 'none');
     }
 });
+$('#back-mode').click(function () {
+    if ($(this)[0].checked) {
+        $('span.back-mode').text('当前：还原模式');
+    } else {
+        $('span.back-mode').text('当前：隐藏模式');
+    }
+})
 
 function string2unicode(text, mode2 = false, filter) {
     var result = '';

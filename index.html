@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>隐藏字符 - WordsAway</title>
+    <title>隐藏文本 - WordsHide</title>
     <link rel="icon" href="img/WordsAway_Black.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" />
     <link rel="stylesheet" href="css/materialize-n.min.css">
@@ -12,7 +12,8 @@
 
 <body>
     <div class="container">
-        <h1 style="font-weight: bold; font-size: 2em">隐藏字符</h1>
+        <h1 style="font-weight: bold; font-size: 2em">隐藏文本</h1>
+        <p>这是一个加密隐藏文本的工具，通过将文本编码为不可见的Unicode控制符，实现对该段文本的隐藏。可将该文本插入到普通文本中，复制粘贴不会丢失，解码后可见。</p>
         <div class="row">
             <form class="col s12">
                 <div class="row">
@@ -38,16 +39,16 @@
                     <div class="input-field col s12 checkboxs">
                         <div class="switch">
                             <label>
-                                <input type="checkbox" checked="checked" class="filled-in" id="if-compress" />
+                                <input type="checkbox" class="filled-in" id="back-mode" />
+                                <span class="back-mode">当前：隐藏模式</span>
+                            </label><br>
+                            <label>
+                                <input type="checkbox" class="filled-in" id="if-compress" />
                                 <span>压缩</span>
                             </label><br>
                             <label>
                                 <input type="checkbox" class="filled-in" id="if-encrypt" />
                                 <span>加密</span>
-                            </label><br>
-                            <label>
-                                <input type="checkbox" class="filled-in" id="back-mode" />
-                                <span>还原模式</span>
                             </label><br>
 
                         </div>
@@ -58,10 +59,30 @@
         </div>
         <div style="height: 40px"></div>
         <p style="font-weight: bold">Result:</p>
-        <pre class="result">请先转换<i class="c-shounuehuaji"></i>
+        <pre class="result">请先转换
 </pre>
         <button data-clipboard-text="请先转换" class="waves-effect waves-light btn-small to-copy">复制</button>
+        <p style="font-weight: bold">明文:</p>
+        <pre class="light-text">
+</pre>
         <div style="height: 50px"></div>
+        <div class="usage-intro">
+            <h2>使用说明</h2>
+            <p>
+                你可以输入或粘贴任意文本，转换（编码）为隐藏文本。隐藏后的文本不可见，你可以把它复制粘贴到普通文本中，或是发送到其他地方，它都不会丢失。<br>
+                将含有隐藏文本的文本粘贴回来，用还原模式即可将隐藏文本还原为原文本。
+            </p>
+            <p>
+                隐藏时为了方便复制，会把隐藏文本放在两个空格之间。如果隐藏文本缺失一部分就无法被还原。
+            </p>
+            <p>
+                对于长文本，“压缩”选项可以减小隐藏后文本的实际大小。<br>
+                “加密”选项可以将任意文本作为密码。
+            </p>
+            <p>
+                如果隐藏时选中了“压缩”，那么还原时也必须选中“压缩”。
+            </p>
+        </div>
         <p>
             <a href="https://github.com/NitroRCr/Words-away">Github</a><br>
             <a href="index.html">Home</a>

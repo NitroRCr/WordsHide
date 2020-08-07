@@ -4,7 +4,8 @@
 
 ## 使用
 
-- [示例网页](https://wordshide.netlify.app)，使用说明见网页下方
+- [示例网页](https://wordshide.netlify.app)
+- 部署为静态网站
 - JavaScript:
 
 ```javascript

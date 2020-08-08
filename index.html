@@ -17,14 +17,32 @@
         <div class="row">
             <form class="col s12">
                 <div class="row">
-                    <div class="input-field col s12 text-in">
-                        <textarea id="textin" class="materialize-textarea"></textarea>
-                        <label for="textin">输入文本</label>
+                    <div class="hide-inputs">
+                        <div class="input-field col s12 text-in">
+                            <textarea id="text-pre" class="materialize-textarea"></textarea>
+                            <label for="text-pre">前段文本（可选）</label>
+                        </div>
+                        <div class="input-field col s12 text-in">
+                            <textarea id="hide-textin" class="materialize-textarea"></textarea>
+                            <label for="hide-textin">需隐藏的文本</label>
+                        </div>
+                        <div class="input-field col s12 text-in">
+                            <textarea id="text-after" class="materialize-textarea"></textarea>
+                            <label for="text-after">后段文本（可选）</label>
+                        </div>
+                    </div>
+                    <div class="back-inputs">
+                        <div class="input-field col s12 text-in">
+                            <textarea id="back-textin" class="materialize-textarea"></textarea>
+                            <label for="back-textin">需还原的文本</label>
+                        </div>
+
                     </div>
                     <div class="input-field col s12 inline password" style="display: none;">
                         <input id="password" type="password" value="">
                         <label for="password">密码</label>
                     </div>
+
 
                     <!-- Selector Backup -->
                     <!--
@@ -37,20 +55,25 @@
                     </div>
                     -->
                     <div class="input-field col s12 checkboxs">
-                        <div class="switch">
+                        <div class="radio-mode" style="margin-bottom: 10px;">
                             <label>
-                                <input type="checkbox" class="filled-in" id="back-mode" />
-                                <span class="back-mode">当前：隐藏模式</span>
-                            </label><br>
+                                <input class="with-gap" name="process-mode" type="radio" checked id="hide-mode" />
+                                <span>加密隐藏</span>
+                            </label>&nbsp;&nbsp;
+                            <label>
+                                <input class="with-gap" name="process-mode" type="radio" id="back-mode" />
+                                <span>解密还原</span>
+                            </label>
+                        </div>
+                        <div class="switch">
                             <label>
                                 <input type="checkbox" class="filled-in" id="if-compress" />
                                 <span>压缩</span>
                             </label><br>
                             <label>
                                 <input type="checkbox" class="filled-in" id="if-encrypt" />
-                                <span>加密</span>
-                            </label><br>
-
+                                <span>密码</span>
+                            </label>
                         </div>
                     </div>
                     <a class="waves-effect waves-light btn-small start-mixin" onclick="return false;" style="float: right">转换</a>
@@ -58,25 +81,38 @@
             </form>
         </div>
         <div style="height: 25px"></div>
-        <p style="font-weight: bold">Result:</p>
-        <pre class="result">请先转换
+        <div class="hide-results">
+            <p style="font-weight: bold">密文：</p>
+            <pre class="result">请先转换
 </pre>
-        <button data-clipboard-text="请先转换" class="waves-effect waves-light btn-small to-copy">复制</button>
-        <p style="font-weight: bold">明文:</p>
-        <pre class="light-text">
+            <button data-clipboard-text="请先转换" class="waves-effect waves-light btn-small hide-to-copy">复制</button>
+            <p style="font-weight: bold">明文:</p>
+            <pre class="light-text">请先转换
 </pre>
+        </div>
+        <div class="back-results">
+            <p style="font-weight: bold">密文部分 原文：</p>
+            <pre class="result">请先转换
+</pre>
+            <button data-clipboard-text="请先转换" class="waves-effect waves-light btn-small hide-to-copy">复制</button>
+            <p style="font-weight: bold">明文:</p>
+            <pre class="light-text">请先转换
+</pre>
+        </div>
+
+
         <div style="height: 50px"></div>
         <div class="usage-intro">
             <h2>使用说明</h2>
             <p>
-                你可以输入或粘贴任意文本，转换（编码）为隐藏文本。隐藏后的文本不可见，你可以把它复制粘贴到普通文本中，或是发送到其他地方，它都不会丢失。<br>
+                你可以输入或粘贴任意文本，转换（加密）为隐藏文本。隐藏后的文本不可见，你可以把它复制粘贴到普通文本中，或是发送到其他地方，它都不会丢失。<br>
                 将含有隐藏文本的文本粘贴回来，用还原模式即可将隐藏文本还原为原文本。
             </p>
             <p>
-                隐藏时为了方便复制，会把隐藏文本放在两个空格之间。如果隐藏文本缺失一部分就无法被还原。
+                加密隐藏时为了方便复制，会把隐藏文本放在两个空格之间。如果隐藏文本缺失一部分就无法被还原。
             </p>
             <p>
-                对于长文本，“压缩”选项可以减小隐藏后文本的实际大小。<br>
+                对于长文本，“压缩”选项可以减小加密隐藏后文本的实际大小。<br>
                 “加密”选项可以将任意文本作为密码。
             </p>
             <p>

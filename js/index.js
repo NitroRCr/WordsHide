@@ -1,6 +1,5 @@
-new ClipboardJS('.hide-to-copy');
-new ClipboardJS('.back-to-copy');
-$('.to-copy').click(function () {
+new ClipboardJS('.back-to-copy,.hide-to-copy');
+$('.back-to-copy,.hide-to-copy').click(function () {
     M.toast({
         html: '已复制'
     });

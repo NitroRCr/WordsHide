@@ -1,66 +1,3 @@
-function FromSeed(symbols, seed, length) {
-    this.symbols = symbols;
-    this.seed = seed;
-    this.length = length;
-    this.random = new Math.seedrandom(seed);
-    this.dictGroup = this.getDictGroup();
-    this.undictGroup = this.getUndictGroup();
-    this.order = this.getOrder();
-    this.unorder = this.getUnorder();
-}
-FromSeed.prototype.fakeShuffle = function (arr, random) {
-    var length = arr.length,
-        temp,
-        random_;
-    while (0 != length) {
-        random_ = Math.floor(random() * length);
-        length--;
-        temp = arr[length];
-        arr[length] = arr[random_];
-        arr[random_] = temp;
-    }
-    return arr;
-}
-FromSeed.prototype.getDict = function () {
-    var arr = this.fakeShuffle(Array.from(this.symbols), this.random).slice(0, 16);
-    var dict = {};
-    for (let i = 0; i < arr.length; i++) {
-        dict[i.toString(16)] = arr[i];
-    }
-    return dict;
-}
-FromSeed.prototype.getDictGroup = function () {
-    var dictGroup = [];
-    for (let i = 0; i < 16; i++) {
-        let dict = this.getDict();
-        dictGroup[i] = dict;
-    }
-    return dictGroup;
-}
-FromSeed.prototype.getUndictGroup = function () {
-    var undictGroup = [];
-    for (let i = 0; i < 16; i++) {
-        let undict = invertKeyValues(this.dictGroup[i])
-        undictGroup.push(undict);
-    }
-    return undictGroup;
-}
-FromSeed.prototype.getOrder = function () {
-    var order = {};
-    var arr = [];
-    for (let i = 0; i < this.length; i++) {
-        arr.push(i);
-    }
-    arr = this.fakeShuffle(arr, this.random);
-    for (let i = 0; i < this.length; i++) {
-        order[i] = arr[i];
-    }
-    return order;
-}
-FromSeed.prototype.getUnorder = function () {
-    return invertKeyValues(this.order);
-}
-
 function WordsHide() {
     this.defaultSymbols = [
         '\u200b',
@@ -185,6 +122,70 @@ WordsHide.prototype.uncompress = function (binStr) {
         to: 'string'
     });
 }
+function FromSeed(symbols, seed, length) {
+    this.symbols = symbols;
+    this.seed = seed;
+    this.length = length;
+    this.random = new Math.seedrandom(seed);
+    this.dictGroup = this.getDictGroup();
+    this.undictGroup = this.getUndictGroup();
+    this.order = this.getOrder();
+    this.unorder = this.getUnorder();
+}
+FromSeed.prototype.fakeShuffle = function (arr, random) {
+    var length = arr.length,
+        temp,
+        random_;
+    while (0 != length) {
+        random_ = Math.floor(random() * length);
+        length--;
+        temp = arr[length];
+        arr[length] = arr[random_];
+        arr[random_] = temp;
+    }
+    return arr;
+}
+FromSeed.prototype.getDict = function () {
+    var arr = this.fakeShuffle(Array.from(this.symbols), this.random).slice(0, 16);
+    var dict = {};
+    for (let i = 0; i < arr.length; i++) {
+        dict[i.toString(16)] = arr[i];
+    }
+    return dict;
+}
+FromSeed.prototype.getDictGroup = function () {
+    var dictGroup = [];
+    for (let i = 0; i < 16; i++) {
+        let dict = this.getDict();
+        dictGroup[i] = dict;
+    }
+    return dictGroup;
+}
+FromSeed.prototype.getUndictGroup = function () {
+    var undictGroup = [];
+    for (let i = 0; i < 16; i++) {
+        let undict = invertKeyValues(this.dictGroup[i])
+        undictGroup.push(undict);
+    }
+    return undictGroup;
+}
+FromSeed.prototype.getOrder = function () {
+    var order = {};
+    var arr = [];
+    for (let i = 0; i < this.length; i++) {
+        arr.push(i);
+    }
+    arr = this.fakeShuffle(arr, this.random);
+    for (let i = 0; i < this.length; i++) {
+        order[i] = arr[i];
+    }
+    return order;
+}
+FromSeed.prototype.getUnorder = function () {
+    return invertKeyValues(this.order);
+}
+
+
 
 const invertKeyValues = obj =>
     Object.keys(obj).reduce((acc, key) => {

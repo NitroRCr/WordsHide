@@ -1,12 +1,14 @@
-new ClipboardJS('.back-to-copy,.hide-to-copy');
-$('.back-to-copy,.hide-to-copy').click(function () {
-    M.toast({
-        html: '已复制'
-    });
-});
-
 var wh = new WordsHide();
-setHideMode();
+
+$().ready(function () {
+    setHideMode();
+    new ClipboardJS('.back-to-copy,.hide-to-copy');
+    $('.back-to-copy,.hide-to-copy').click(function () {
+        M.toast({
+            html: '已复制'
+        });
+    });
+})
 
 $('.start-mixin').click(function () {
     if ($('#if-encrypt')[0].checked) {
@@ -19,10 +21,10 @@ $('.start-mixin').click(function () {
     if (!ifHide) {
         let input = $('#back-textin').val(),
             text = input,
-            match = text.match(wh.symbolsReg),
+            match = text.match(wh.SYMBOL_REG),
             hidden;
         if (match) {
-            hidden = match[1];
+            hidden = match[0];
         } else {
             M.toast({
                 html: '未发现隐藏文本'
@@ -30,19 +32,15 @@ $('.start-mixin').click(function () {
             return;
         }
         try {
-            if (ifCompress) {
-                var str = wh.unhideWithCompress(hidden, password);
-            } else {
-                var str = wh.unhideWithUtf8(hidden, password);
-            }
+            var str = wh.unhide(hidden, password);
         } catch (e) {
             M.toast({
                 html: "解密失败"
             });
             throw e;
         }
-        text = text.replace(match[0], str);
-        $('.back-results .light-text').text(input.replace(match[0], string2unicode(match[0])));
+        text = text.replace(hidden, str);
+        $('.back-results .light-text').text(input.replace(hidden, string2unicode(hidden)));
         $('.back-results .result').text(str);
         $('.back-to-copy').attr('data-clipboard-text', text);
     } else {
@@ -55,7 +53,6 @@ $('.start-mixin').click(function () {
         } else {
             text = wh.hideWithUtf8(text, password);
         }
-        text = '\u202d' + text + '\u202d';
         $('.hide-results .light-text').text(pre + string2unicode(text) + after);
         $('.hide-results .result').text(pre + text + after);
         $('.hide-to-copy').attr('data-clipboard-text', pre + text + after);
@@ -111,6 +108,7 @@ function setHideMode() {
     $('div.hide-results').css('display', 'block');
     $('div.back-inputs').css('display', 'none');
     $('div.back-results').css('display', 'none');
+    $('.switch>label').css('display', 'block');
 }
 
 function setBackMode() {
@@ -118,6 +116,7 @@ function setBackMode() {
     $('div.hide-results').css('display', 'none');
     $('div.back-inputs').css('display', 'block');
     $('div.back-results').css('display', 'block');
+    $('label.if-compress').css('display', 'none');
 }
 
 function ustr(code) {

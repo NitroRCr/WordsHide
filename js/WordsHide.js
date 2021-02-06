@@ -111,7 +111,6 @@ WordsHide.prototype.hideWithUtf8 = function (str, password = "") {
 }
 WordsHide.prototype.unhide = function (hidden, password = "") {
     var match = hidden.match(this.SYMBOL_REG);
-    console.log(hidden);
     if (match === null) {
         throw TypeError("hidden not found");
         return;

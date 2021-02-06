@@ -4,7 +4,7 @@
 
 ## 使用
 
-- [示例网页](https://wordshide.netlify.app)
+- [示例网页](https://hide.krytro.com)
 - 部署为静态网站
 - JavaScript:
 
